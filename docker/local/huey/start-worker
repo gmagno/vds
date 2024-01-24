@@ -1,0 +1,17 @@
+#!/bin/sh
+
+set -o errexit
+set -o nounset
+
+
+
+# echo "Worker running! Debugpy now accepting remote attach from clients..."
+# watchmedo auto-restart --recursive -p '*.py' \
+#     -- python -m debugpy --listen 0.0.0.0:${DEBUG_PORT} --wait-for-client \
+#     -m huey.bin.huey_consumer vidoso.worker.huey
+
+# echo "Worker running!"
+# huey_consumer vidoso.worker.huey -k process -w 1
+
+echo "Worker running!"
+huey_consumer vidoso.worker.huey

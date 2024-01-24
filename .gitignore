@@ -1,0 +1,15 @@
+venv
+.idea
+__pycache__
+*.egg-info
+*~
+dev.env
+.venv
+.DS_Store
+.coverage
+build/
+.tool-versions
+local.py
+notes.txt
+*.egg-info
+.vscode/

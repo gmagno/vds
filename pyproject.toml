@@ -1,0 +1,120 @@
+[project]
+name = "vidoso"
+classifiers = ["Programming Language :: Python :: 3.11"]
+version = "0.1.0"
+dependencies = [
+    "aws-lambda-powertools[tracer]",
+    "boto3",
+    "faiss-cpu",
+    "fastapi",
+    "huey",
+    "openai-whisper",
+    "pydantic-settings",
+    "pydantic",
+    "pydub",
+    "pytube",
+    "redis",
+    "rich",
+    "sentence-transformers",
+    "spacy",
+    "typer",
+    "uvloop",
+]
+
+
+[project.optional-dependencies]
+dev = [
+    "aws-lambda-powertools[aws-sdk]",
+    "boto3-stubs",
+    "boto3-stubs[essential]",
+    "coverage",
+    "debugpy",
+    "httpx",
+    "ipython",
+    "moto",
+    "mypy",
+    "pre-commit",
+    "pytest-asyncio",
+    "pytest-cov",
+    "pytest-mock",
+    "pytest-xdist",
+    "pytest",
+    "python-lsp-server[flake8]",
+    "ruff",
+    "uvicorn",
+    "watchdog",
+]
+
+[build-system]
+requires = ["setuptools>=63", "setuptools_scm[toml]>=6.2", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.pytest.ini_options]
+pythonpath = ["src", "tests"]
+asyncio_mode = "auto"
+addopts = """
+    -vv
+    -n auto
+    --durations=10
+"""
+
+[tool.mypy]
+python_version = "3.11"
+plugins = ["pydantic.mypy"]
+mypy_path = "src"
+
+follow_imports = "silent"
+warn_redundant_casts = true
+warn_unused_ignores = true
+disallow_any_generics = true
+check_untyped_defs = true
+no_implicit_reexport = true
+disallow_untyped_defs = true
+
+[tool.pydantic-mypy]
+init_forbid_extra = true
+init_typed = true
+warn_required_dynamic_aliases = true
+
+[tool.ruff]
+src = ["src", "tests"]
+exclude = [
+    ".bzr",
+    ".direnv",
+    ".eggs",
+    ".git",
+    ".git-rewrite",
+    ".hg",
+    ".mypy_cache",
+    ".nox",
+    ".pants.d",
+    ".pytype",
+    ".ruff_cache",
+    ".svn",
+    ".tox",
+    ".venv",
+    "__pypackages__",
+    "_build",
+    "buck-out",
+    "build",
+    "dist",
+    "node_modules",
+    "venv",
+    ".venv",
+]
+line-length = 88
+indent-width = 4
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F", "I", "UP"]
+ignore = []
+fixable = ["ALL"]
+unfixable = []
+dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "auto"

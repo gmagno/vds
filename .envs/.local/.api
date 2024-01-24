@@ -1,0 +1,29 @@
+# AWS
+AWS_ACCESS_KEY_ID='local'
+AWS_SECRET_ACCESS_KEY='local'
+AWS_DEFAULT_REGION='local'
+AWS_ENDPOINT_URL='http://localstack:4566'
+
+ENVIRONMENT='local'
+
+DEBUG_PORT="5678"
+API_APP="vidoso.main:create_app"
+PORT="9000"
+
+TITLE='Vidoso'
+DESCRIPTION='Vidoso...'
+VERSION='0.1'
+BASE_URL='/vidoso/v1'
+DOCS_URL='/vidoso/v1/docs'
+OPENAPI_URL='/vidoso/v1/openapi.json'
+
+WHISPER_MODEL='base'
+
+# Terminal
+# ------------------------------------------------------------------------------
+# setting both $COLUMNS and $LINES fixes a terminal size issue, if not set
+# fastapi app logging (rich) gets limited to 80 columns or so making the output
+# look ugly. Customize these variables according to your current terminal
+# configuration
+COLUMNS=160
+LINES=40

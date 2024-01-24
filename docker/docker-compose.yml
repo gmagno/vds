@@ -1,0 +1,74 @@
+version: "3.8"
+
+volumes:
+  local_localstack_data: {}
+
+services:
+
+  localstack:
+    image: localstack/localstack:2.2.0
+    container_name: localstack
+    ports:
+      - "127.0.0.1:4566:4566" # LocalStack Gateway
+      - "127.0.0.1:4510-4559:4510-4559" # external services port range
+    environment:
+      - DEBUG=1
+      - PERSISTENCE=1
+      - DOCKER_HOST=unix:///var/run/docker.sock
+      - ACTIVATE_PRO=0
+      - ALLOW_NONSTANDARD_REGIONS=1
+    volumes:
+      - "local_localstack_data:/var/lib/localstack"
+      - "/var/run/docker.sock:/var/run/docker.sock"
+
+  dynamodb-admin:
+    image: aaronshaf/dynamodb-admin
+    container_name: dynamodb-admin
+    environment:
+      - DYNAMO_ENDPOINT=localstack:4566
+    ports:
+      - "8001:8001"
+
+  api:
+    image: vidoso_api
+    build:
+      context: ../
+      dockerfile: ./docker/local/api/Dockerfile
+    container_name: vidoso_api
+    env_file:
+      - ../.envs/.local/.api
+    volumes:
+      - ../src:/app:z
+    ports:
+      - 9000:9000
+      - 5678:5678
+    depends_on:
+      - "localstack"
+    tty: true # fixes colored output!
+    command: /start
+
+  redis:
+    image: redis:latest
+    container_name: vidoso_redis
+    ports:
+      - 6379:6379
+
+  worker:
+    image: vidoso_worker
+    # container_name: vidoso_worker
+    deploy:
+      mode: replicated
+      replicas: 4
+    build:
+      context: ../
+      dockerfile: ./docker/local/api/Dockerfile
+    env_file:
+      - ../.envs/.local/.api
+    volumes:
+      - ../src:/app:z
+    # ports:
+    #   - 51678:5678
+    depends_on:
+      - "redis"
+    tty: true # fixes colored output!
+    command: /start-worker
