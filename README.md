@@ -1,11 +1,8 @@
 # Vidoso
 
-* [Description](#description)
-* [Usage](#usage)
-
-## Description
-
 An api for text semantic search.
+
+https://github.com/gmagno/vds/assets/46817915/25226560-a3ae-495a-a57f-19676bed8625
 
 Services:
 
