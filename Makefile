@@ -34,14 +34,6 @@ requirements-dev.txt: pyproject.toml
 	$(VENV)/bin/pip-compile -o requirements-dev.txt --extra dev pyproject.toml
 
 
-#--- CLI --------------------------------#
-
-
-.PHONY: cli-golden-dump
-cli-golden-dump:
-	PYTHONPATH=src $(PYTHON) -m cli golden dump
-
-
 #--- LINT -------------------------------#
 
 .PHONY: lint
@@ -51,16 +43,6 @@ lint:
 
 
 #--- TEST -------------------------------#
-
-.PHONY: test
-test:
-	${VENV}/bin/pytest
-
-.PHONY: test-debug
-test-debug:
-	PYDEVD_DISABLE_FILE_VALIDATION=1 ${VENV}/bin/watchmedo auto-restart --recursive -p '*.py' \
-		-- python -m debugpy --listen 0.0.0.0:5678 --wait-for-client \
-		-m pytest -vvv -n 1 tests/integration/test_events_notifications.py::test_list_email_events
 
 .PHONY: run-debug
 run-debug: ${VENV}
