@@ -13,21 +13,21 @@ Services:
 
 - docker/docker-compose
 - make
-
+- [dynein](https://github.com/awslabs/dynein)
 
 ## Build images
 
     make infra-build
 
 
+## Run app
+
+    make infra-run
+
 ## Create tables and indexes
 
     make db-local-admin-create-tables
     make db-local-admin-create-indexes
-
-## Run app
-
-    make infra-run
 
 ## Tail logs
 
